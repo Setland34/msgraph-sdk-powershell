@@ -52,17 +52,18 @@ namespace Microsoft.Graph.PowerShell.Authentication.Core.Utilities
             if (authContext is null)
                 throw new AuthenticationException(ErrorConstants.Message.MissingAuthContext);
 
-            var interactiveOptions = new InteractiveBrowserCredentialOptions
+            /*var interactiveOptions = new InteractiveBrowserCredentialOptions
             {
                 ClientId = authContext.ClientId,
                 TenantId = authContext.TenantId,
                 AuthorityHost = new Uri(GetAuthorityUrl(authContext)),
                 TokenCachePersistenceOptions = GetTokenCachePersistenceOptions(authContext)
-            };
+            };*/
+            var interactiveOptions = new InteractiveBrowserCredentialBrokerOptions();
 
             if (!File.Exists(Constants.AuthRecordPath))
             {
-                var interactiveBrowserCredential = new InteractiveBrowserCredential(interactiveOptions);
+                var interactiveBrowserCredential = new InteractiveBrowserCredential(interactiveOptions); 
                 var authRecord = await interactiveBrowserCredential.AuthenticateAsync(new TokenRequestContext(authContext.Scopes), cancellationToken).ConfigureAwait(false);
                 await WriteAuthRecordAsync(authRecord).ConfigureAwait(false);
                 return interactiveBrowserCredential;
