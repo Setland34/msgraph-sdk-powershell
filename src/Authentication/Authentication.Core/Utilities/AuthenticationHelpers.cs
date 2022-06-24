@@ -52,14 +52,12 @@ namespace Microsoft.Graph.PowerShell.Authentication.Core.Utilities
             if (authContext is null)
                 throw new AuthenticationException(ErrorConstants.Message.MissingAuthContext);
 
-            /*var interactiveOptions = new InteractiveBrowserCredentialOptions
-            {
+            var interactiveOptions = new InteractiveBrowserCredentialBrokerOptions{
                 ClientId = authContext.ClientId,
                 TenantId = authContext.TenantId,
                 AuthorityHost = new Uri(GetAuthorityUrl(authContext)),
                 TokenCachePersistenceOptions = GetTokenCachePersistenceOptions(authContext)
-            };*/
-            var interactiveOptions = new InteractiveBrowserCredentialBrokerOptions();
+            };
 
             if (!File.Exists(Constants.AuthRecordPath))
             {
