@@ -61,8 +61,8 @@ namespace Microsoft.Graph.PowerShell.Authentication.Core.Utilities
 
             if (!File.Exists(Constants.AuthRecordPath))
             {
-                var interactiveBrowserCredential = new InteractiveBrowserCredential(interactiveOptions); 
-                var authRecord = await interactiveBrowserCredential.AuthenticateAsync(new TokenRequestContext(authContext.Scopes), cancellationToken).ConfigureAwait(false);
+                var interactiveBrowserCredential = new InteractiveBrowserCredential(interactiveOptions);
+                var authRecord = await interactiveBrowserCredential.AuthenticateAsync(new TokenRequestContext(authContext.Scopes), cancellationToken).ConfigureAwait(false).WithBrokerPreview();
                 await WriteAuthRecordAsync(authRecord).ConfigureAwait(false);
                 return interactiveBrowserCredential;
             }
