@@ -20,6 +20,7 @@ namespace Microsoft.Graph.PowerShell.Authentication
         public string Account { get; set; }
         public string AppName { get; set; }
         public ContextScope ContextScope { get ; set ; }
+        public SigninUi SigninUi { get ; set ; }
         public X509Certificate2 Certificate { get; set; }
         public Version PSHostVersion { get; set; }
         public TimeSpan ClientTimeout { get; set; } = TimeSpan.FromSeconds(Constants.ClientTimeout);

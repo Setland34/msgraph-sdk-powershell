@@ -81,6 +81,12 @@ namespace Microsoft.Graph.PowerShell.Authentication.Cmdlets
         public ContextScope ContextScope { get; set; }
 
         [Parameter(ParameterSetName = Constants.AppParameterSet)]
+        [Parameter(ParameterSetName = Constants.UserParameterSet,
+            Mandatory = false,
+            HelpMessage = "Determines the scope of token acquisition. This accepts `Native` for Web Account Manager of the token acquisition, or `Browser` for web embedded view of the token acquisition.")]
+        public SigninUi SigninUi { get; set; }
+
+        [Parameter(ParameterSetName = Constants.AppParameterSet)]
         [Parameter(ParameterSetName = Constants.AccessTokenParameterSet)]
         [Parameter(ParameterSetName = Constants.UserParameterSet,
             Mandatory = false,
@@ -186,6 +192,7 @@ namespace Microsoft.Graph.PowerShell.Authentication.Cmdlets
                             // Default to CurrentUser but allow the customer to change this via `-ContextScope`.
                             authContext.ContextScope = this.IsParameterBound(nameof(ContextScope)) ? ContextScope : ContextScope.CurrentUser;
                             authContext.TokenCredentialType = UseDeviceCode ? TokenCredentialType.DeviceCode : TokenCredentialType.InteractiveBrowser;
+                            authContext.SigninUi = this.IsParameterBound(nameof(SigninUi)) ? SigninUi : SigninUi.Browser;
                         }
                         break;
                     case Constants.AppParameterSet:
